@@ -1,4 +1,4 @@
-🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
+## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
 
 This project is proprietary and confidential. Unauthorized copying, distribution, modification, deployment, or use of this software is strictly prohibited without prior written permission from the owner.»
 
