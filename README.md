@@ -1,10 +1,10 @@
-## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
+ ## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
 
 This project is proprietary and confidential. Unauthorized copying, distribution, modification, deployment, or use of this software is strictly prohibited without prior written permission from the owner.»
 
 ---
 
-📖 About
+ ## 📖 About
 
 DallaGPA Calc is a production-grade academic performance management platform built for Kenyan universities. It enables students, lecturers, and administrators to calculate semester GPAs, cumulative CGPAs, predict degree classifications, generate professional transcripts, and access deep academic analytics.
 
@@ -14,7 +14,7 @@ This system is intended solely for internal use by the original licensee. The so
 
 ---
 
-✨ Features
+ ## ✨ Features
 
  # Authentication & User Management
 
