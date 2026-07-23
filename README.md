@@ -1,10 +1,10 @@
- ## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
+## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
 
 This project is proprietary and confidential. Unauthorized copying, distribution, modification, deployment, or use of this software is strictly prohibited without prior written permission from the owner.»
 
 ---
 
- ## 📖 About
+## 📖 About
 
 DallaGPA Calc is a production-grade academic performance management platform built for Kenyan universities. It enables students, lecturers, and administrators to calculate semester GPAs, cumulative CGPAs, predict degree classifications, generate professional transcripts, and access deep academic analytics.
 
@@ -15,7 +15,9 @@ This system is intended solely for internal use by the original licensee. The so
 ---
 
  ## ✨ Features
-
+ 
+ ---
+ 
 # Authentication & User Management
 
 - Multi-role authentication (Student, Lecturer, and Administrator)
@@ -60,7 +62,7 @@ This system is intended solely for internal use by the original licensee. The so
 
 ---
 
-🧰 Tech Stack
+## 🧰 Tech Stack
 
 |Layer    | Technology                                                                               |
 |---------|------------------------------------------------------------------------------------------|
@@ -71,7 +73,7 @@ This system is intended solely for internal use by the original licensee. The so
 
 ---
 
-⚠️ License & Usage Restrictions
+## ⚠️ License & Usage Restrictions
 
 This software and its source code are the exclusive intellectual property of DallaGPA.
 
@@ -90,17 +92,17 @@ Contact:marvinfrank2680@gmail.com
 
 ---
 
-🚀 Setup (For Authorized Developers Only)
+## 🚀 Setup (For Authorized Developers Only)
 
 The following instructions are provided exclusively for the licensee's internal development team. Unauthorized persons must not attempt to run or deploy this system.»
 
-Prerequisites
+# Prerequisites
 
 - Node.js 18+
 - PostgreSQL 15+
 - Docker (Optional)
 
-Environment Variables
+# Environment Variables
 
 Copy the example environment files into both the backend and frontend directories.
 
@@ -108,7 +110,7 @@ backend/.env.example → backend/.env
 
 frontend/.env.example → frontend/.env
 
-Fill in the required configuration values, including:
+# Fill in the required configuration values, including:
 
 - Database URL
 - JWT Secret Keys
@@ -118,8 +120,7 @@ Fill in the required configuration values, including:
 
 ---
 
-Backend
-
+# Backend
 ```bash
 cd backend
 
@@ -132,8 +133,7 @@ npm run dev
 
 ---
 
-Frontend
-
+# Frontend
 ```bash
 cd frontend
 
@@ -144,14 +144,14 @@ npm run dev
 
 ---
 
-Docker
+# Docker
 ```bash
 docker compose up -d
 ```
 
 ---
 
-📚 API Documentation
+## 📚 API Documentation
 
 API endpoints are documented using Swagger/OpenAPI.
 
@@ -165,7 +165,7 @@ Access is restricted to authorized users only.
 
 ---
 
-📄 Transcript Generation
+## 📄 Transcript Generation
 
 DallaGPA Calc generates professional PDF transcripts containing:
 
@@ -180,7 +180,7 @@ DallaGPA Calc generates professional PDF transcripts containing:
 
 ---
 
-🔒 Security
+## 🔒 Security
 
 The platform incorporates modern security best practices, including:
 
@@ -197,7 +197,7 @@ The platform incorporates modern security best practices, including:
 
 ---
 
-👨‍💻 Made By
+## 👨‍💻 Made By
 
 Dalla Development Team
 
@@ -213,7 +213,7 @@ All intellectual property remains the exclusive property of the DallaGPA Develop
 
 ---
 
-📞 Contact
+## 📞 Contact
 
 For support, permissions, partnerships, or licensing inquiries:
 
@@ -223,7 +223,7 @@ Phone: +254 748 642 275
 
 ---
 
-🏛️ Legal Notice
+## 🏛️ Legal Notice
 
 This project is protected under applicable copyright laws and international intellectual property treaties.
 
