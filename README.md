@@ -16,13 +16,13 @@ This system is intended solely for internal use by the original licensee. The so
 
  ## ✨ Features
 
- # Authentication & User Management
+# Authentication & User Management
 
 - Multi-role authentication (Student, Lecturer, and Administrator)
 - Secure login and authentication
 - Role-Based Access Control (RBAC)
 
- # Academic Management
+# Academic Management
 
 - Real-time GPA and CGPA calculation
 - Support for multiple Kenyan university grading systems
@@ -30,28 +30,28 @@ This system is intended solely for internal use by the original licensee. The so
 - Course management (Add, Edit, Delete, Search)
 - Department and academic year management
 
- # Transcript & Reporting
+# Transcript & Reporting
 
 - Professional PDF transcript generation
 - QR Code verification
 - Digital signature support
 - Export reports in PDF, Excel, and CSV formats
 
- # Dashboards & Analytics
+# Dashboards & Analytics
 
 - Interactive dashboards
 - Academic performance trends
 - GPA and CGPA visualization charts
 - Student performance analytics
 
- # Notifications
+# Notifications
 
 - Email notifications
 - Results publication alerts
 - Low GPA warnings
 - Academic announcements
 
- # User Experience
+# User Experience
 
 - Responsive design
 - Progressive Web App (PWA) support
