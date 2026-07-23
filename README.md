@@ -143,6 +143,7 @@ For internal use only. All intellectual property remains with the DallaGPA team.
 For support, permissions, or licensing:
 
 · Email: marvinfrank2680@gmail.com
+
 · Tell: +254748642275
 
 ---
