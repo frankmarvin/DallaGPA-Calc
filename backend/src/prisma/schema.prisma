@@ -1,0 +1,262 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  role          Role      @default(STUDENT)
+  isVerified    Boolean   @default(false)
+  profile       Profile?
+  student       Student?
+  lecturer      Lecturer?
+  admin         Admin?
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Profile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  firstName       String
+  lastName        String
+  phone           String?
+  photoUrl        String?
+  bio             String?
+  address         String?
+  dateOfBirth     DateTime?
+  gender          Gender?
+  nationality     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Student {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id])
+  regNo            String   @unique
+  facultyId        String
+  faculty          Faculty  @relation(fields: [facultyId], references: [id])
+  departmentId     String
+  department       Department @relation(fields: [departmentId], references: [id])
+  programme        String
+  currentYear      Int      @default(1)
+  currentSemester  Int      @default(1)
+  graduationYear   Int?
+  status           StudentStatus @default(ACTIVE)
+  results          Result[]
+  enrolledCourses  EnrolledCourse[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Lecturer {
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  staffNo      String   @unique
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+  courses      Course[]
+  results      Result[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  role      AdminRole @default(SUPER_ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faculty {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  code       String       @unique
+  departments Department[]
+  students   Student[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model Department {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  code        String     @unique
+  facultyId   String
+  faculty     Faculty    @relation(fields: [facultyId], references: [id])
+  students    Student[]
+  lecturers   Lecturer[]
+  courses     Course[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Course {
+  id              String            @id @default(uuid())
+  code            String            @unique
+  name            String
+  credits         Int
+  departmentId    String
+  department      Department        @relation(fields: [departmentId], references: [id])
+  lecturerId      String?
+  lecturer        Lecturer?         @relation(fields: [lecturerId], references: [id])
+  enrolledCourses EnrolledCourse[]
+  results         Result[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model EnrolledCourse {
+  id         String   @id @default(uuid())
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id])
+  courseId   String
+  course     Course   @relation(fields: [courseId], references: [id])
+  semester   Int
+  year       Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Result {
+  id           String   @id @default(uuid())
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
+  courseId     String
+  course       Course   @relation(fields: [courseId], references: [id])
+  lecturerId   String?
+  lecturer     Lecturer? @relation(fields: [lecturerId], references: [id])
+  catMarks     Float?
+  examMarks    Float?
+  totalMarks   Float
+  grade        String
+  gradePoint   Float
+  qualityPoints Float
+  semester     Int
+  year         Int
+  isApproved   Boolean  @default(false)
+  approvedBy   String?
+  approvedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Semester {
+  id            String   @id @default(uuid())
+  name          String
+  academicYear  String
+  startDate     DateTime
+  endDate       DateTime
+  isActive      Boolean  @default(false)
+  isLocked      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model GradingSystem {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  isDefault   Boolean  @default(false)
+  grades      GradeScale[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GradeScale {
+  id            String   @id @default(uuid())
+  gradingSystemId String
+  gradingSystem GradingSystem @relation(fields: [gradingSystemId], references: [id])
+  minMarks      Float
+  maxMarks      Float
+  grade         String
+  gradePoint    Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model DegreeClassification {
+  id           String   @id @default(uuid())
+  name         String
+  minCGPA      Float
+  maxCGPA      Float
+  universityId String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  details   Json?
+  ip        String?
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       Json
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Role {
+  STUDENT
+  LECTURER
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum StudentStatus {
+  ACTIVE
+  GRADUATED
+  WITHDRAWN
+  SUSPENDED
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum NotificationType {
+  INFO
+  WARNING
+  SUCCESS
+  ERROR
+}
