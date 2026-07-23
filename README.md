@@ -1,28 +1,28 @@
-## 🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
+🎓 DallaGPA Calc – Enterprise GPA & CGPA Management System
 
 This project is proprietary and confidential. Unauthorized copying, distribution, modification, deployment, or use of this software is strictly prohibited without prior written permission from the owner.»
 
 ---
 
-## 📖 About
+📖 About
 
- - DallaGPA Calc is a production-grade academic performance management platform built for Kenyan universities. It enables students, lecturers, and administrators to calculate semester GPAs, cumulative CGPAs, predict degree classifications, generate professional transcripts, and access deep academic analytics.
+DallaGPA Calc is a production-grade academic performance management platform built for Kenyan universities. It enables students, lecturers, and administrators to calculate semester GPAs, cumulative CGPAs, predict degree classifications, generate professional transcripts, and access deep academic analytics.
 
- - The platform is designed to simplify academic performance management through a secure, scalable, and user-friendly system suitable for higher education institutions across Kenya.
+The platform is designed to simplify academic performance management through a secure, scalable, and user-friendly system suitable for higher education institutions across Kenya.
 
- - This system is intended solely for internal use by the original licensee. The source code is provided exclusively for evaluation and reference purposes to the intended recipient and must not be copied, redistributed, deployed, or used without prior written authorization.
+This system is intended solely for internal use by the original licensee. The source code is provided exclusively for evaluation and reference purposes to the intended recipient and must not be copied, redistributed, deployed, or used without prior written authorization.
 
 ---
 
 ✨ Features
 
-Authentication & User Management
+ # Authentication & User Management
 
 - Multi-role authentication (Student, Lecturer, and Administrator)
 - Secure login and authentication
 - Role-Based Access Control (RBAC)
 
-Academic Management
+ # Academic Management
 
 - Real-time GPA and CGPA calculation
 - Support for multiple Kenyan university grading systems
@@ -30,28 +30,28 @@ Academic Management
 - Course management (Add, Edit, Delete, Search)
 - Department and academic year management
 
-Transcript & Reporting
+ # Transcript & Reporting
 
 - Professional PDF transcript generation
 - QR Code verification
 - Digital signature support
 - Export reports in PDF, Excel, and CSV formats
 
-Dashboards & Analytics
+ # Dashboards & Analytics
 
 - Interactive dashboards
 - Academic performance trends
 - GPA and CGPA visualization charts
 - Student performance analytics
 
-Notifications
+ # Notifications
 
 - Email notifications
 - Results publication alerts
 - Low GPA warnings
 - Academic announcements
 
-User Experience
+ # User Experience
 
 - Responsive design
 - Progressive Web App (PWA) support
@@ -62,11 +62,12 @@ User Experience
 
 🧰 Tech Stack
 
-Layer| Technology
-Frontend| React (Vite), TypeScript, Tailwind CSS, Zustand, TanStack Query, Recharts, Framer Motion
-Backend| Node.js, Express, TypeScript, Prisma ORM, JWT, bcrypt, Nodemailer
-Database| PostgreSQL (Supabase / Neon)
-DevOps| Docker, Docker Compose, GitHub Actions CI/CD
+|Layer    | Technology                                                                               |
+|---------|------------------------------------------------------------------------------------------|
+|Frontend | React (Vite), TypeScript, Tailwind CSS, Zustand, TanStack Query, Recharts, Framer Motion |
+|Backend  | Node.js, Express, TypeScript, Prisma ORM, JWT, bcrypt, Nodemailer                        |
+|Database | PostgreSQL (Supabase / Neon)                                                             |
+|DevOps   | Docker, Docker Compose, GitHub Actions CI/CD                                             |
 
 ---
 
@@ -84,15 +85,14 @@ By accessing this repository, you acknowledge and agree to the following terms:
 
 Unauthorized use of this software may result in legal action under applicable copyright and intellectual property laws.
 
-For licensing inquiries, contact:
-
-marvinfrank2680@gmail.com
+For licensing inquiries; 
+Contact:marvinfrank2680@gmail.com
 
 ---
 
 🚀 Setup (For Authorized Developers Only)
 
-«The following instructions are provided exclusively for the licensee's internal development team. Unauthorized persons must not attempt to run or deploy this system.»
+The following instructions are provided exclusively for the licensee's internal development team. Unauthorized persons must not attempt to run or deploy this system.»
 
 Prerequisites
 
@@ -120,6 +120,7 @@ Fill in the required configuration values, including:
 
 Backend
 
+```bash
 cd backend
 
 npm install
@@ -127,22 +128,26 @@ npm install
 npx prisma migrate dev
 
 npm run dev
+```
 
 ---
 
 Frontend
 
+```bash
 cd frontend
 
 npm install
 
 npm run dev
+```
 
 ---
 
 Docker
-
+```bash
 docker compose up -d
+```
 
 ---
 
@@ -152,7 +157,9 @@ API endpoints are documented using Swagger/OpenAPI.
 
 When the backend is running, documentation is available at:
 
+```bash
 /api-docs
+```
 
 Access is restricted to authorized users only.
 
@@ -212,7 +219,7 @@ For support, permissions, partnerships, or licensing inquiries:
 
 Email: marvinfrank2680@gmail.com
 
-Tel: +254 748 642 275
+Phone: +254 748 642 275
 
 ---
 
