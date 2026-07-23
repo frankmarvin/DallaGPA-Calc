@@ -88,7 +88,8 @@ By accessing this repository, you acknowledge and agree to the following terms:
 Unauthorized use of this software may result in legal action under applicable copyright and intellectual property laws.
 
 For licensing inquiries; 
-Contact:marvinfrank2680@gmail.com
+Contact: 
+marvinfrank2680@gmail.com
 
 ---
 
@@ -201,11 +202,12 @@ The platform incorporates modern security best practices, including:
 
 Dalla Development Team
 
-Role| Team Member
-Lead Developer| Marvin Frank Otieno
-Architecture & Backend| Abby Wallance
-Frontend & UI/UX| Benedict Mwangi
-Database & DevOps| James Gategi Mburu
+|Role                   | Team Member          | 
+|-----------------------|----------------------|
+|Lead Developer         | Marvin Frank Otieno  |
+|Architecture & Backend | Abby Wallance        |
+|Frontend & UI/UX       | Benedict Mwangi      | 
+|Database & DevOps      | James Gategi Mburu   |
 
 This project was crafted with precision, security, and scalability in mind exclusively for the Kenyan higher education sector.
 
