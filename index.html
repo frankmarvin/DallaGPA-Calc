@@ -160,15 +160,15 @@
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
           <p class="italic">“DallaGPA saved me from manual spreadsheets. The transcript generator is a lifesaver!”</p>
-          <p class="mt-4 font-semibold">— Grace M., University of Nairobi</p>
+          <p class="mt-4 font-semibold">— Julius Onyango., University of Nairobi</p>
         </div>
         <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
           <p class="italic">“I can track my CGPA throughout the year and know exactly what I need to graduate with First Class.”</p>
-          <p class="mt-4 font-semibold">— James K., JKUAT</p>
+          <p class="mt-4 font-semibold">— James Gategi Mburu, Kirinyaga University</p>
         </div>
         <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
           <p class="italic">“The analytics dashboard is fantastic – I can see my improvement semester by semester.”</p>
-          <p class="mt-4 font-semibold">— Sarah W., Kenyatta University</p>
+          <p class="mt-4 font-semibold">— Kevin Oyare, Kenyatta University</p>
         </div>
       </div>
     </div>
@@ -212,7 +212,6 @@
 
   <!-- ====== JAVASCRIPT for GPA Calculator & Theme ====== -->
   <script>
-    // ---------- Theme Toggle ----------
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     let darkMode = localStorage.getItem('dark') === 'true';
@@ -225,7 +224,6 @@
       localStorage.setItem('dark', darkMode);
     });
 
-    // ---------- GPA Calculator ----------
     const courses = [];
     const gradePoints = { 'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5, 'C': 2.0, 'D+': 1.5, 'D': 1.0, 'E': 0.0 };
 
@@ -251,10 +249,9 @@
         totalPoints += c.credits * c.points;
       });
       const gpa = totalCredits === 0 ? 0 : totalPoints / totalCredits;
-      // CGPA is same as GPA here (we simulate all semesters combined)
       document.getElementById('totalCredits').textContent = totalCredits;
       document.getElementById('gpaDisplay').textContent = gpa.toFixed(2);
-      document.getElementById('cgpaDisplay').textContent = gpa.toFixed(2); // simplified
+      document.getElementById('cgpaDisplay').textContent = gpa.toFixed(2); 
     }
 
     function removeCourse(index) {
@@ -281,7 +278,6 @@
       input.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('addCourseBtn').click(); });
     });
 
-    // Initial render
     renderCourses();
   </script>
 
