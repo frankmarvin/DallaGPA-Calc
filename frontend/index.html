@@ -1,41 +1,289 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
-  <head>
-    <!-- ========== Meta ========== -->
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#4F46E5" />
-    <meta name="description" content="DallaGPA Calc – Enterprise GPA & CGPA Management System for Kenyan Universities" />
-    <meta name="keywords" content="GPA, CGPA, university, Kenya, academic, management, transcript" />
-    <meta name="author" content="DallaGPA" />
-    <meta name="robots" content="noindex, nofollow" />
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DallaGPA Calc – Interactive Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .dark .glass {
+      background: rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.05);
+    }
+    body.transition-colors { transition: background 0.3s, color 0.3s; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
 
-    <!-- ========== Open Graph ========== -->
-    <meta property="og:title" content="DallaGPA Calc – Calculate. Track. Graduate." />
-    <meta property="og:description" content="The ultimate academic performance platform for Kenyan universities." />
-    <meta property="og:image" content="https://dallagpa.com/og-image.png" />
-    <meta property="og:url" content="https://dallagpa.com" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <!-- ====== NAV ====== -->
+  <nav class="fixed top-0 w-full z-50 glass shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">DallaGPA</span>
+      <div class="flex items-center space-x-4">
+        <button id="themeToggle" class="text-xl p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">🌙</button>
+        <a href="#calculator" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Try GPA Calc</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- ========== PWA / Manifest ========== -->
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <!-- ====== HERO ====== -->
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 pt-16">
+    <div class="text-center max-w-4xl px-4">
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+        Calculate. <span class="text-indigo-600 dark:text-indigo-400">Track.</span> Graduate.
+      </h1>
+      <p class="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        The ultimate GPA &amp; CGPA management system for Kenyan universities – built for students, lecturers, and administrators.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="#calculator" class="px-8 py-4 bg-indigo-600 text-white rounded-lg text-lg font-semibold shadow hover:bg-indigo-700 transition">Try the Calculator</a>
+        <a href="#features" class="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg text-lg font-semibold shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition">Learn More</a>
+      </div>
+      <!-- Stats -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-3xl font-bold text-indigo-600">4.0</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Max GPA</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-3xl font-bold text-indigo-600">8</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Semesters</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-3xl font-bold text-indigo-600">100%</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Accuracy</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-3xl font-bold text-indigo-600">20+</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Universities</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== Title ========== -->
-    <title>DallaGPA Calc – GPA &amp; CGPA Management</title>
+  <!-- ====== FEATURES ====== -->
+  <section id="features" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Everything You Need</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="text-xl font-semibold">GPA &amp; CGPA</h3>
+          <p class="text-gray-600 dark:text-gray-300 mt-2">Real‑time calculations with automatic semester aggregation.</p>
+        </div>
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
+          <div class="text-4xl mb-4">📄</div>
+          <h3 class="text-xl font-semibold">Transcripts</h3>
+          <p class="text-gray-600 dark:text-gray-300 mt-2">Professional PDF transcripts with QR verification.</p>
+        </div>
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
+          <div class="text-4xl mb-4">📈</div>
+          <h3 class="text-xl font-semibold">Analytics</h3>
+          <p class="text-gray-600 dark:text-gray-300 mt-2">Interactive charts and performance trends.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== Preload / Fonts (optional) ========== -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" /> -->
+  <!-- ====== BENEFITS ====== -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose DallaGPA?</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="flex items-start space-x-4">
+          <span class="text-2xl">🎓</span>
+          <div><h3 class="font-semibold">Student‑Focused</h3><p class="text-gray-600 dark:text-gray-300">Track your progress and predict your degree class with ease.</p></div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <span class="text-2xl">🔒</span>
+          <div><h3 class="font-semibold">Secure &amp; Reliable</h3><p class="text-gray-600 dark:text-gray-300">JWT authentication, role‑based access, and encrypted data.</p></div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <span class="text-2xl">🌍</span>
+          <div><h3 class="font-semibold">Kenyan Universities</h3><p class="text-gray-600 dark:text-gray-300">Supports 20+ local university grading systems.</p></div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <span class="text-2xl">📱</span>
+          <div><h3 class="font-semibold">Responsive &amp; Modern</h3><p class="text-gray-600 dark:text-gray-300">Works on desktop, tablet, and mobile.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  </head>
-  <body>
-    <!-- React mount point -->
-    <div id="root"></div>
+  <!-- ====== GPA CALCULATOR (Interactive) ====== -->
+  <section id="calculator" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-6">🎯 GPA &amp; CGPA Calculator</h2>
+      <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Add your courses and see your results instantly.</p>
 
-    <!-- Entry script -->
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+      <!-- Course Input -->
+      <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl shadow mb-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <input id="courseName" placeholder="Course" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
+          <input id="credits" type="number" placeholder="Credits" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
+          <input id="grade" placeholder="Grade (A, B+, etc.)" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
+          <button id="addCourseBtn" class="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 transition">Add Course</button>
+        </div>
+        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">Grade points: A=4.0, B+=3.5, B=3.0, C+=2.5, C=2.0, D+=1.5, D=1.0, E=0.0</div>
+      </div>
+
+      <!-- Course List -->
+      <div id="courseList" class="space-y-2 mb-6"></div>
+
+      <!-- Results -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Total Credits</div>
+          <div id="totalCredits" class="text-2xl font-bold text-indigo-600">0</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-sm text-gray-500 dark:text-gray-400">GPA</div>
+          <div id="gpaDisplay" class="text-2xl font-bold text-indigo-600">0.00</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
+          <div class="text-sm text-gray-500 dark:text-gray-400">CGPA</div>
+          <div id="cgpaDisplay" class="text-2xl font-bold text-indigo-600">0.00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TESTIMONIALS ====== -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">What Students Say</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <p class="italic">“DallaGPA saved me from manual spreadsheets. The transcript generator is a lifesaver!”</p>
+          <p class="mt-4 font-semibold">— Grace M., University of Nairobi</p>
+        </div>
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <p class="italic">“I can track my CGPA throughout the year and know exactly what I need to graduate with First Class.”</p>
+          <p class="mt-4 font-semibold">— James K., JKUAT</p>
+        </div>
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <p class="italic">“The analytics dashboard is fantastic – I can see my improvement semester by semester.”</p>
+          <p class="mt-4 font-semibold">— Sarah W., Kenyatta University</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
+          <summary class="font-semibold cursor-pointer">How is GPA calculated?</summary>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">GPA = (sum of (credits × grade point)) ÷ total credits. Our system does it automatically.</p>
+        </details>
+        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
+          <summary class="font-semibold cursor-pointer">Can I customise the grading system?</summary>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">Yes, administrators can create and assign grading systems per university.</p>
+        </details>
+        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
+          <summary class="font-semibold cursor-pointer">Is the system secure?</summary>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">Absolutely – JWT tokens, HTTPS, and role‑based access control protect your data.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
+      <p class="text-gray-600 dark:text-gray-300 mb-8">Have questions or need help? Reach out to our support team.</p>
+      <a href="mailto:support@dallagpa.com" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition">Email Us</a>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="bg-gray-900 text-white py-8 text-center text-sm">
+    <p>&copy; 2026 DallaGPA – All rights reserved.</p>
+    <p class="text-gray-400 mt-2">Built for Kenyan universities – Made with ❤️</p>
+  </footer>
+
+  <!-- ====== JAVASCRIPT for GPA Calculator & Theme ====== -->
+  <script>
+    // ---------- Theme Toggle ----------
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    let darkMode = localStorage.getItem('dark') === 'true';
+    if (darkMode) html.classList.add('dark');
+    themeToggle.textContent = darkMode ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      html.classList.toggle('dark');
+      themeToggle.textContent = darkMode ? '☀️' : '🌙';
+      localStorage.setItem('dark', darkMode);
+    });
+
+    // ---------- GPA Calculator ----------
+    const courses = [];
+    const gradePoints = { 'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5, 'C': 2.0, 'D+': 1.5, 'D': 1.0, 'E': 0.0 };
+
+    function renderCourses() {
+      const container = document.getElementById('courseList');
+      if (courses.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center">No courses added yet.</p>';
+        return;
+      }
+      container.innerHTML = courses.map((c, i) => `
+        <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+          <span><strong>${c.name}</strong> (${c.credits} cr) – Grade ${c.grade} (${c.points.toFixed(1)})</span>
+          <button onclick="removeCourse(${i})" class="text-red-500 hover:text-red-700 font-bold">✕</button>
+        </div>
+      `).join('');
+      updateResults();
+    }
+
+    function updateResults() {
+      let totalCredits = 0, totalPoints = 0;
+      courses.forEach(c => {
+        totalCredits += c.credits;
+        totalPoints += c.credits * c.points;
+      });
+      const gpa = totalCredits === 0 ? 0 : totalPoints / totalCredits;
+      // CGPA is same as GPA here (we simulate all semesters combined)
+      document.getElementById('totalCredits').textContent = totalCredits;
+      document.getElementById('gpaDisplay').textContent = gpa.toFixed(2);
+      document.getElementById('cgpaDisplay').textContent = gpa.toFixed(2); // simplified
+    }
+
+    function removeCourse(index) {
+      courses.splice(index, 1);
+      renderCourses();
+    }
+
+    document.getElementById('addCourseBtn').addEventListener('click', () => {
+      const name = document.getElementById('courseName').value.trim();
+      const credits = parseInt(document.getElementById('credits').value);
+      const grade = document.getElementById('grade').value.trim().toUpperCase();
+      if (!name || isNaN(credits) || credits <= 0 || !gradePoints[grade]) {
+        alert('Please enter a valid course name, credits (>0), and a valid grade (A, B+, B, C+, C, D+, D, E).');
+        return;
+      }
+      courses.push({ name, credits, grade, points: gradePoints[grade] });
+      document.getElementById('courseName').value = '';
+      document.getElementById('credits').value = '';
+      document.getElementById('grade').value = '';
+      renderCourses();
+    });
+
+    document.querySelectorAll('#courseName, #credits, #grade').forEach(input => {
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('addCourseBtn').click(); });
+    });
+
+    // Initial render
+    renderCourses();
+  </script>
+
+</body>
 </html>
