@@ -1,285 +1,1060 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DallaGPA Calc – Interactive Demo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .glass {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .dark .glass {
-      background: rgba(0,0,0,0.3);
-      border-color: rgba(255,255,255,0.05);
-    }
-    body.transition-colors { transition: background 0.3s, color 0.3s; }
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DallaGPA | Registration</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+darkMode:'class',
+theme:{
+extend:{
+colors:{
+primary:'#4F46E5',
+secondary:'#7C3AED',
+accent:'#06B6D4'
+},
+animation:{
+float:'float 8s ease-in-out infinite',
+blob:'blob 12s infinite',
+fade:'fade 1s ease'
+},
+keyframes:{
+float:{
+'0%,100%':{transform:'translateY(0px)'},
+'50%':{transform:'translateY(-20px)'}
+},
+blob:{
+'0%':{
+transform:'translate(0px,0px) scale(1)'
+},
+'33%':{
+transform:'translate(30px,-50px) scale(1.1)'
+},
+'66%':{
+transform:'translate(-20px,20px) scale(.9)'
+},
+'100%':{
+transform:'translate(0px,0px) scale(1)'
+}
+},
+fade:{
+'0%':{opacity:'0'},
+'100%':{opacity:'1'}
+}
+}
+}
+}
+}
+</script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+overflow-x:hidden;
+
+background:
+linear-gradient(
+135deg,
+#312E81,
+#4F46E5,
+#2563EB,
+#0EA5E9
+);
+
+background-size:400% 400%;
+
+animation:gradientBG 18s ease infinite;
+
+min-height:100vh;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.glass{
+
+background:rgba(255,255,255,.10);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.25);
+
+}
+
+.input{
+
+width:100%;
+
+padding:15px;
+
+border-radius:14px;
+
+border:1px solid rgba(255,255,255,.2);
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+transition:.3s;
+
+outline:none;
+
+}
+
+.input:focus{
+
+border-color:#06B6D4;
+
+box-shadow:
+0 0 15px rgba(6,182,212,.5);
+
+}
+
+.input::placeholder{
+
+color:#d1d5db;
+
+}
+
+label{
+
+color:white;
+
+font-size:14px;
+
+margin-bottom:8px;
+
+display:block;
+
+font-weight:500;
+
+}
+
+.btn{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:15px;
+
+background:
+
+linear-gradient(
+90deg,
+#4F46E5,
+#2563EB
+);
+
+font-weight:700;
+
+color:white;
+
+cursor:pointer;
+
+transition:.4s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 20px 40px rgba(37,99,235,.4);
+
+}
+
+.circle{
+
+position:absolute;
+
+border-radius:50%;
+
+filter:blur(60px);
+
+opacity:.45;
+
+animation:blob 12s infinite;
+
+}
+
+.circle:nth-child(1){
+
+width:300px;
+
+height:300px;
+
+background:#7C3AED;
+
+top:-80px;
+
+left:-80px;
+
+}
+
+.circle:nth-child(2){
+
+width:350px;
+
+height:350px;
+
+background:#06B6D4;
+
+bottom:-100px;
+
+right:-100px;
+
+animation-delay:3s;
+
+}
+
+.circle:nth-child(3){
+
+width:180px;
+
+height:180px;
+
+background:#F43F5E;
+
+top:50%;
+
+left:60%;
+
+animation-delay:6s;
+
+}
+
+.logo{
+
+font-size:38px;
+
+font-weight:800;
+
+color:white;
+
+text-align:center;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:white;
+
+opacity:.8;
+
+margin-top:10px;
+
+margin-bottom:30px;
+
+}
+
+</style>
+
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
 
-  <!-- ====== NAV ====== -->
-  <nav class="fixed top-0 w-full z-50 glass shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-      <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">DallaGPA</span>
-      <div class="flex items-center space-x-4">
-        <button id="themeToggle" class="text-xl p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">🌙</button>
-        <a href="#calculator" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Try GPA Calc</a>
-      </div>
-    </div>
-  </nav>
+<body>
 
-  <!-- ====== HERO ====== -->
-  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 pt-16">
-    <div class="text-center max-w-4xl px-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
-        Calculate. <span class="text-indigo-600 dark:text-indigo-400">Track.</span> Graduate.
-      </h1>
-      <p class="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        The ultimate GPA &amp; CGPA management system for Kenyan universities – built for students, lecturers, and administrators.
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a href="#calculator" class="px-8 py-4 bg-indigo-600 text-white rounded-lg text-lg font-semibold shadow hover:bg-indigo-700 transition">Try the Calculator</a>
-        <a href="#features" class="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg text-lg font-semibold shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition">Learn More</a>
-      </div>
-      <!-- Stats -->
-      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-3xl font-bold text-indigo-600">4.0</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">Max GPA</div>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-3xl font-bold text-indigo-600">8</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">Semesters</div>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-3xl font-bold text-indigo-600">100%</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">Accuracy</div>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-3xl font-bold text-indigo-600">20+</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">Universities</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="circle"></div>
 
-  <!-- ====== FEATURES ====== -->
-  <section id="features" class="py-20 bg-white dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Everything You Need</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
-          <div class="text-4xl mb-4">📊</div>
-          <h3 class="text-xl font-semibold">GPA &amp; CGPA</h3>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Real‑time calculations with automatic semester aggregation.</p>
-        </div>
-        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
-          <div class="text-4xl mb-4">📄</div>
-          <h3 class="text-xl font-semibold">Transcripts</h3>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Professional PDF transcripts with QR verification.</p>
-        </div>
-        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow text-center">
-          <div class="text-4xl mb-4">📈</div>
-          <h3 class="text-xl font-semibold">Analytics</h3>
-          <p class="text-gray-600 dark:text-gray-300 mt-2">Interactive charts and performance trends.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="circle"></div>
 
-  <!-- ====== BENEFITS ====== -->
-  <section class="py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Why Choose DallaGPA?</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="flex items-start space-x-4">
-          <span class="text-2xl">🎓</span>
-          <div><h3 class="font-semibold">Student‑Focused</h3><p class="text-gray-600 dark:text-gray-300">Track your progress and predict your degree class with ease.</p></div>
-        </div>
-        <div class="flex items-start space-x-4">
-          <span class="text-2xl">🔒</span>
-          <div><h3 class="font-semibold">Secure &amp; Reliable</h3><p class="text-gray-600 dark:text-gray-300">JWT authentication, role‑based access, and encrypted data.</p></div>
-        </div>
-        <div class="flex items-start space-x-4">
-          <span class="text-2xl">🌍</span>
-          <div><h3 class="font-semibold">Kenyan Universities</h3><p class="text-gray-600 dark:text-gray-300">Supports 20+ local university grading systems.</p></div>
-        </div>
-        <div class="flex items-start space-x-4">
-          <span class="text-2xl">📱</span>
-          <div><h3 class="font-semibold">Responsive &amp; Modern</h3><p class="text-gray-600 dark:text-gray-300">Works on desktop, tablet, and mobile.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="circle"></div>
 
-  <!-- ====== GPA CALCULATOR (Interactive) ====== -->
-  <section id="calculator" class="py-20 bg-white dark:bg-gray-900">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-6">🎯 GPA &amp; CGPA Calculator</h2>
-      <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Add your courses and see your results instantly.</p>
+<div class="min-h-screen flex items-center justify-center p-8">
 
-      <!-- Course Input -->
-      <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl shadow mb-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <input id="courseName" placeholder="Course" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
-          <input id="credits" type="number" placeholder="Credits" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
-          <input id="grade" placeholder="Grade (A, B+, etc.)" class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600" />
-          <button id="addCourseBtn" class="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 transition">Add Course</button>
-        </div>
-        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">Grade points: A=4.0, B+=3.5, B=3.0, C+=2.5, C=2.0, D+=1.5, D=1.0, E=0.0</div>
-      </div>
+<div class="glass rounded-3xl w-full max-w-2xl p-10 animate-fade">
 
-      <!-- Course List -->
-      <div id="courseList" class="space-y-2 mb-6"></div>
+<div class="logo">
 
-      <!-- Results -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-sm text-gray-500 dark:text-gray-400">Total Credits</div>
-          <div id="totalCredits" class="text-2xl font-bold text-indigo-600">0</div>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-sm text-gray-500 dark:text-gray-400">GPA</div>
-          <div id="gpaDisplay" class="text-2xl font-bold text-indigo-600">0.00</div>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow">
-          <div class="text-sm text-gray-500 dark:text-gray-400">CGPA</div>
-          <div id="cgpaDisplay" class="text-2xl font-bold text-indigo-600">0.00</div>
-        </div>
-      </div>
-    </div>
-  </section>
+🎓 DallaGPA
 
-  <!-- ====== TESTIMONIALS ====== -->
-  <section class="py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">What Students Say</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-          <p class="italic">“DallaGPA saved me from manual spreadsheets. The transcript generator is a lifesaver!”</p>
-          <p class="mt-4 font-semibold">— Julius Onyango., University of Nairobi</p>
-        </div>
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-          <p class="italic">“I can track my CGPA throughout the year and know exactly what I need to graduate with First Class.”</p>
-          <p class="mt-4 font-semibold">— James Gategi Mburu, Kirinyaga University</p>
-        </div>
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-          <p class="italic">“The analytics dashboard is fantastic – I can see my improvement semester by semester.”</p>
-          <p class="mt-4 font-semibold">— Kevin Oyare, Kenyatta University</p>
-        </div>
-      </div>
-    </div>
-  </section>
+</div>
 
-  <!-- ====== FAQ ====== -->
-  <section class="py-20 bg-white dark:bg-gray-900">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-      <div class="space-y-4">
-        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
-          <summary class="font-semibold cursor-pointer">How is GPA calculated?</summary>
-          <p class="mt-2 text-gray-600 dark:text-gray-300">GPA = (sum of (credits × grade point)) ÷ total credits. Our system does it automatically.</p>
-        </details>
-        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
-          <summary class="font-semibold cursor-pointer">Can I customise the grading system?</summary>
-          <p class="mt-2 text-gray-600 dark:text-gray-300">Yes, administrators can create and assign grading systems per university.</p>
-        </details>
-        <details class="border-b border-gray-200 dark:border-gray-700 pb-4">
-          <summary class="font-semibold cursor-pointer">Is the system secure?</summary>
-          <p class="mt-2 text-gray-600 dark:text-gray-300">Absolutely – JWT tokens, HTTPS, and role‑based access control protect your data.</p>
-        </details>
-      </div>
-    </div>
-  </section>
+<p class="subtitle">
 
-  <!-- ====== CONTACT ====== -->
-  <section class="py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
-      <p class="text-gray-600 dark:text-gray-300 mb-8">Have questions or need help? Reach out to our support team.</p>
-      <a href="mailto:support@dallagpa.com" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition">Email Us</a>
-    </div>
-  </section>
+Create your student account to continue
 
-  <!-- ====== FOOTER ====== -->
-  <footer class="bg-gray-900 text-white py-8 text-center text-sm">
-    <p>&copy; 2026 DallaGPA – All rights reserved.</p>
-    <p class="text-gray-400 mt-2">Built for Kenyan universities – Made with ❤️</p>
-  </footer>
+</p>
 
-  <!-- ====== JAVASCRIPT for GPA Calculator & Theme ====== -->
-  <script>
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    let darkMode = localStorage.getItem('dark') === 'true';
-    if (darkMode) html.classList.add('dark');
-    themeToggle.textContent = darkMode ? '☀️' : '🌙';
-    themeToggle.addEventListener('click', () => {
-      darkMode = !darkMode;
-      html.classList.toggle('dark');
-      themeToggle.textContent = darkMode ? '☀️' : '🌙';
-      localStorage.setItem('dark', darkMode);
-    });
+<form id="registerForm">
 
-    const courses = [];
-    const gradePoints = { 'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5, 'C': 2.0, 'D+': 1.5, 'D': 1.0, 'E': 0.0 };
+<div class="grid md:grid-cols-2 gap-6">
 
-    function renderCourses() {
-      const container = document.getElementById('courseList');
-      if (courses.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center">No courses added yet.</p>';
-        return;
-      }
-      container.innerHTML = courses.map((c, i) => `
-        <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <span><strong>${c.name}</strong> (${c.credits} cr) – Grade ${c.grade} (${c.points.toFixed(1)})</span>
-          <button onclick="removeCourse(${i})" class="text-red-500 hover:text-red-700 font-bold">✕</button>
-        </div>
-      `).join('');
-      updateResults();
-    }
+<div>
 
-    function updateResults() {
-      let totalCredits = 0, totalPoints = 0;
-      courses.forEach(c => {
-        totalCredits += c.credits;
-        totalPoints += c.credits * c.points;
-      });
-      const gpa = totalCredits === 0 ? 0 : totalPoints / totalCredits;
-      document.getElementById('totalCredits').textContent = totalCredits;
-      document.getElementById('gpaDisplay').textContent = gpa.toFixed(2);
-      document.getElementById('cgpaDisplay').textContent = gpa.toFixed(2); 
-    }
+<label>
 
-    function removeCourse(index) {
-      courses.splice(index, 1);
-      renderCourses();
-    }
+Full Name
 
-    document.getElementById('addCourseBtn').addEventListener('click', () => {
-      const name = document.getElementById('courseName').value.trim();
-      const credits = parseInt(document.getElementById('credits').value);
-      const grade = document.getElementById('grade').value.trim().toUpperCase();
-      if (!name || isNaN(credits) || credits <= 0 || !gradePoints[grade]) {
-        alert('Please enter a valid course name, credits (>0), and a valid grade (A, B+, B, C+, C, D+, D, E).');
-        return;
-      }
-      courses.push({ name, credits, grade, points: gradePoints[grade] });
-      document.getElementById('courseName').value = '';
-      document.getElementById('credits').value = '';
-      document.getElementById('grade').value = '';
-      renderCourses();
-    });
+</label>
 
-    document.querySelectorAll('#courseName, #credits, #grade').forEach(input => {
-      input.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('addCourseBtn').click(); });
-    });
+<input
 
-    renderCourses();
-  </script>
+type="text"
+
+id="fullname"
+
+class="input"
+
+placeholder="Kangethe John"
+
+required>
+
+</div>
+
+<div>
+
+<label>
+
+Email Address
+
+</label>
+
+<input
+
+type="email"
+
+id="email"
+
+class="input"
+
+placeholder="example@gmail.com"
+
+required>
+
+</div>
+
+<div>
+
+<label>
+
+University
+
+</label>
+
+<select
+
+id="university"
+
+class="input">
+
+<option>
+
+Select University
+
+</option>
+
+<option>University of Nairobi</option>
+
+<option>Kenyatta University</option>
+
+<option>Jomo Kenyatta University of Agriculture and Technology</option>
+
+<option>Moi University</option>
+
+<option>Strathmore University</option>
+
+<option>Egerton University</option>
+
+<option>Maseno University</option>
+
+<option>Mount Kenya University</option>
+
+<option>United States International University Africa (USIU-Africa)</option>
+
+<option>Technical University of Kenya</option>
+
+<option>Catholic University of Eastern Africa</option>
+
+<option>Masinde Muliro University of Science and Technology</option>
+
+<option>Dedan Kimathi University of Technology</option>
+
+<option>Kabarak University</option>
+
+<option>Daystar University</option>
+
+<option>Pwani University</option>
+
+<option>University of Eldoret</option>
+
+<option>Kisii University</option>
+
+<option>Murang'a University of Technology</option>
+
+<option>Machakos University</option>
+
+<option>Chuka University</option>
+
+<option>South Eastern Kenya University</option>
+
+<option>Maasai Mara University</option>
+
+<option>Jaramogi Oginga Odinga University of Science and Technology</option>
+
+<option>Meru University of Science and Technology</option>
+
+<option>KCA University</option>
+
+<option>Multimedia University of Kenya</option>
+
+<option>St. Paul's University</option>
+
+<option>Africa Nazarene University</option>
+
+<option>University of Eastern Africa, Baraton</option>
+
+<option>The Co-operative University of Kenya</option>
+
+<option>Riara University</option>
+
+<option>Kirinyaga University</option>
+
+<option>Laikipia University</option>
+
+<option>Karatina University</option>
+
+<option>Kibabii University</option>
+
+<option>Rongo University</option>
+
+<option>Taita Taveta University</option>
+
+<option>Garissa University</option>
+
+<option>Embu University</option>
+
+<option>Technical University of Mombasa</option>
+
+<option>Tom Mboya University</option>
+
+<option>Alupe University</option>
+
+<option>Kaimosi Friends University</option>
+
+<option>Tharaka University</option>
+
+<option>Kenyatta University Teaching, Referral and Research Campus</option>
+
+<option>Zetech University</option>
+
+<option>Pan Africa Christian University</option>
+
+<option>Africa International University</option>
+
+<option>Amref International University</option>
+
+<option>International Leadership University</option>
+
+<option>Pioneer International University</option>
+
+<option>Great Lakes University of Kisumu</option>
+
+<option>Gretsa University</option>
+
+<option>Scott Christian University</option>
+
+<option>Presbyterian University of East Africa</option>
+
+<option>Umma University</option>
+
+<option>Islamic University of Kenya</option>
+
+<option>Adventist University of Africa</option>
+
+<option>KAG East University</option>
+
+<option>Tangaza University</option>
+
+<option>Lukenya University</option>
+
+<option>Management University of Africa</option>
+
+<option>Kiriri Women's University of Science and Technology</option>
+
+<option>The East African University</option>
+
+<option>Scott Christian University</option>
+
+<option>Aga Khan University</option>
+
+<option>Marist International University College</option>
+
+<option>Uzima University</option>
+
+<option>Regent University College of East Africa</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+
+Registration Number
+
+</label>
+
+<input
+
+type="text"
+
+id="regno"
+
+class="input"
+
+placeholder="CS/001/2026"
+
+required>
+
+</div>
+<div>
+
+<label>
+
+Student ID
+
+</label>
+
+<input
+type="text"
+id="studentid"
+class="input"
+placeholder="22/04567"
+required>
+
+</div>
+
+<div>
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+type="tel"
+id="phone"
+class="input"
+placeholder="+254748642275"
+required>
+
+</div>
+
+<div>
+
+<label>
+
+Password
+
+</label>
+
+<div class="relative">
+
+<input
+type="password"
+id="password"
+class="input pr-14"
+placeholder="Create Password"
+required>
+
+<button
+type="button"
+id="togglePassword"
+class="absolute right-4 top-1/2 -translate-y-1/2 text-white">
+
+👁
+
+</button>
+
+</div>
+
+</div>
+
+<div>
+
+<label>
+
+Confirm Password
+
+</label>
+
+<div class="relative">
+
+<input
+type="password"
+id="confirmPassword"
+class="input pr-14"
+placeholder="Confirm Password"
+required>
+
+<button
+type="button"
+id="toggleConfirmPassword"
+class="absolute right-4 top-1/2 -translate-y-1/2 text-white">
+
+👁
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-6">
+
+<label>
+
+Password Strength
+
+</label>
+
+<div class="w-full h-3 bg-white/20 rounded-full overflow-hidden">
+
+<div
+id="strengthBar"
+class="h-full rounded-full transition-all duration-500 bg-red-500"
+style="width:0%;">
+
+</div>
+
+</div>
+
+<p
+id="strengthText"
+class="text-sm text-white mt-2">
+
+Password Strength
+
+</p>
+
+</div>
+
+<div class="mt-6 flex items-start gap-3">
+
+<input
+type="checkbox"
+id="terms"
+class="mt-1 w-5 h-5 accent-cyan-400">
+
+<label
+for="terms"
+class="text-white leading-6">
+
+I agree to the
+
+<a
+href="#"
+class="text-cyan-300 underline">
+
+Terms & Conditions
+
+</a>
+
+and
+
+<a
+href="#"
+class="text-cyan-300 underline">
+
+Privacy Policy
+
+</a>
+
+</label>
+
+</div>
+
+<div class="mt-8">
+
+<button
+type="submit"
+class="btn">
+
+Create Account
+
+</button>
+
+</div>
+
+<div class="mt-8 text-center text-white">
+
+Already have an account?
+
+<a
+href="login.html"
+class="font-bold text-cyan-300 hover:text-cyan-200">
+
+Login
+
+</a>
+
+</div>
+
+<div class="mt-10">
+
+<div class="flex items-center gap-4">
+
+<hr class="flex-1 border-white/20">
+
+<span class="text-white/70 text-sm">
+
+OR CONTINUE WITH
+
+</span>
+
+<hr class="flex-1 border-white/20">
+
+</div>
+
+<div class="grid grid-cols-3 gap-4 mt-6">
+
+<button
+type="button"
+class="glass rounded-xl py-3 text-white hover:scale-105 transition">
+
+Google
+
+</button>
+
+<button
+type="button"
+class="glass rounded-xl py-3 text-white hover:scale-105 transition">
+
+Microsoft
+
+</button>
+
+<button
+type="button"
+class="glass rounded-xl py-3 text-white hover:scale-105 transition">
+
+GitHub
+
+</button>
+
+</div>
+
+</div>
+
+<div class="mt-10 text-center text-white/70 text-sm">
+
+© 2026 DallaGPA
+
+<br>
+
+Built by Frank Marvin ❤️
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+
+const togglePassword =
+document.getElementById("togglePassword");
+
+const toggleConfirmPassword =
+document.getElementById("toggleConfirmPassword");
+
+togglePassword.onclick = () =>{
+
+password.type =
+password.type==="password"
+?
+"text"
+:
+"password";
+
+togglePassword.innerHTML =
+password.type==="password"
+?
+"👁"
+:
+"🙈";
+
+}
+
+toggleConfirmPassword.onclick = ()=>{
+
+confirmPassword.type =
+confirmPassword.type==="password"
+?
+"text"
+:
+"password";
+
+toggleConfirmPassword.innerHTML =
+confirmPassword.type==="password"
+?
+"👁"
+:
+"🙈";
+
+}
+
+
+const strengthBar =
+document.getElementById("strengthBar");
+
+const strengthText =
+document.getElementById("strengthText");
+
+password.addEventListener("input",()=>{
+
+const value=password.value;
+
+let strength=0;
+
+if(value.length>=8)
+strength+=25;
+
+if(/[A-Z]/.test(value))
+strength+=25;
+
+if(/[0-9]/.test(value))
+strength+=25;
+
+if(/[!@#$%^&*]/.test(value))
+strength+=25;
+
+strengthBar.style.width=strength+"%";
+
+if(strength<=25){
+
+strengthBar.className=
+"h-full rounded-full bg-red-500 transition-all duration-500";
+
+strengthText.innerHTML=
+"Weak Password";
+
+}
+
+else if(strength<=50){
+
+strengthBar.className=
+"h-full rounded-full bg-yellow-500 transition-all duration-500";
+
+strengthText.innerHTML=
+"Fair Password";
+
+}
+
+else if(strength<=75){
+
+strengthBar.className=
+"h-full rounded-full bg-blue-500 transition-all duration-500";
+
+strengthText.innerHTML=
+"Good Password";
+
+}
+
+else{
+
+strengthBar.className=
+"h-full rounded-full bg-green-500 transition-all duration-500";
+
+strengthText.innerHTML=
+"Strong Password";
+
+}
+
+});
+
+
+document
+.getElementById("registerForm")
+.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+const fullname =
+document.getElementById("fullname").value.trim();
+
+const email =
+document.getElementById("email").value.trim();
+
+const university =
+document.getElementById("university").value;
+
+const regno =
+document.getElementById("regno").value.trim();
+
+const studentid =
+document.getElementById("studentid").value.trim();
+
+const phone =
+document.getElementById("phone").value.trim();
+
+const pass =
+password.value;
+
+const confirm =
+confirmPassword.value;
+
+const terms =
+document.getElementById("terms").checked;
+
+if(
+fullname==="" ||
+
+email==="" ||
+
+regno==="" ||
+
+studentid==="" ||
+
+phone===""
+
+){
+
+alert("Please fill in all required fields.");
+
+return;
+
+}
+
+if(university==="Select University"){
+
+alert("Please select your university.");
+
+return;
+
+}
+
+if(pass.length<8){
+
+alert("Password must contain at least 8 characters.");
+
+return;
+
+}
+
+if(pass!==confirm){
+
+alert("Passwords do not match.");
+
+return;
+
+}
+
+if(!terms){
+
+alert("Please accept the Terms and Conditions.");
+
+return;
+
+}
+
+const user={
+
+fullname,
+
+email,
+
+university,
+
+regno,
+
+studentid,
+
+phone,
+
+password:pass
+
+};
+
+localStorage.setItem(
+
+"dallagpaUser",
+
+JSON.stringify(user)
+
+);
+
+
+alert(
+
+"Registration Successful!\n\nRedirecting to Login Page..."
+
+);
+
+
+window.location.href="login.html";
+
+});
+
+
+if(
+
+window.matchMedia(
+
+"(prefers-color-scheme:dark)"
+
+).matches
+
+){
+
+document.documentElement.classList.add("dark");
+
+}
+
+</script>
 
 </body>
+
 </html>
