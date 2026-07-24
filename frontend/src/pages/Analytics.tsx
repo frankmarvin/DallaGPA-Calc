@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../api/client';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/Card';
+import { Navigation } from '../components/Navigation';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
 const COLORS = ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
@@ -11,23 +12,25 @@ export function Analytics() {
     queryFn: () => api.get('/analytics').then(res => res.data),
   });
 
-  if (isLoading) return <div className="p-6">Loading analytics...</div>;
-  if (!data) return <div className="p-6 text-red-500">No analytics data</div>;
+  if (isLoading) return <><Navigation /><div className="p-6">Loading analytics...</div></>;
+  if (!data) return <><Navigation /><div className="p-6 text-red-500">No analytics data</div></>;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
+    <>
+      <Navigation />
+      <div className="p-6 max-w-7xl mx-auto space-y-6">
+        <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader><CardTitle>GPA Trend by Semester</CardTitle></CardHeader>
-          <CardContent className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data.gpaTrend}>
-                <XAxis dataKey="semester" />
-                <YAxis domain={[0, 4]} />
-                <Tooltip />
-                <Line type="monotone" dataKey="gpa" stroke="#4F46E5" strokeWidth={2} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader><CardTitle>GPA Trend by Semester</CardTitle></CardHeader>
+            <CardContent className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={data.gpaTrend}>
+                  <XAxis dataKey="semester" />
+                  <YAxis domain={[0, 4]} />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="gpa" stroke="#4F46E5" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
@@ -76,6 +79,7 @@ export function Analytics() {
           </CardContent>
         </Card>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

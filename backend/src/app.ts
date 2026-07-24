@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
 import authRoutes from './routes/auth';
 import studentRoutes from './routes/student';
-import lecturerRoutes from './routes/lecturer';
+import lectureRoutes from './routes/lecture';
 import adminRoutes from './routes/admin';
 import courseRoutes from './routes/course';
 import resultRoutes from './routes/result';
@@ -46,7 +46,7 @@ app.use(morgan('dev'));
 // ========== Routes ==========
 app.use('/api/auth', authRoutes);
 app.use('/api/students', authenticate, studentRoutes);
-app.use('/api/lecturers', authenticate, lecturerRoutes);
+app.use('/api/lecturers', authenticate, lectureRoutes);
 app.use('/api/admins', authenticate, adminRoutes);
 app.use('/api/courses', authenticate, courseRoutes);
 app.use('/api/results', authenticate, resultRoutes);

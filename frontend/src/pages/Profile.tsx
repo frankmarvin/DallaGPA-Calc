@@ -1,6 +1,7 @@
 import { useAuthStore } from '../store/auth';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/Card';
 import { Button } from '../components/Button';
+import { Navigation } from '../components/Navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -99,54 +100,56 @@ export function Profile() {
     }
   };
 
-  if (!user) return <div className="p-6 text-center">Please log in to view your profile.</div>;
+  if (!user) return <><Navigation /><div className="p-6 text-center">Please log in to view your profile.</div></>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
-      <h1 className="text-3xl font-bold">My Profile</h1>
+    <>
+      <Navigation />
+      <div className="p-6 max-w-4xl mx-auto space-y-8">
+        <h1 className="text-3xl font-bold">My Profile</h1>
 
-      {/* Profile Card */}
-      <Card>
-        <CardHeader><CardTitle>Personal Information</CardTitle></CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmitProfile)} className="space-y-4">
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-300 overflow-hidden">
-                  {photoFile ? (
-                    <img src={URL.createObjectURL(photoFile)} alt="Preview" className="w-full h-full object-cover" />
-                  ) : profile.photoUrl ? (
-                    <img src={profile.photoUrl} alt="Profile" className="w-full h-full object-cover" />
-                  ) : (
-                    `${profile.firstName?.[0] || ''}${profile.lastName?.[0] || ''}`
-                  )}
+        {/* Profile Card */}
+        <Card>
+          <CardHeader><CardTitle>Personal Information</CardTitle></CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmitProfile)} className="space-y-4">
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <div className="relative">
+                  <div className="w-24 h-24 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-300 overflow-hidden">
+                    {photoFile ? (
+                      <img src={URL.createObjectURL(photoFile)} alt="Preview" className="w-full h-full object-cover" />
+                    ) : profile.photoUrl ? (
+                      <img src={profile.photoUrl} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      `${profile.firstName?.[0] || ''}${profile.lastName?.[0] || ''}`
+                    )}
+                  </div>
+                  <label className="absolute bottom-0 right-0 bg-indigo-600 text-white rounded-full p-1 cursor-pointer hover:bg-indigo-700">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
+                  </label>
                 </div>
-                <label className="absolute bottom-0 right-0 bg-indigo-600 text-white rounded-full p-1 cursor-pointer hover:bg-indigo-700">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                  <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
-                </label>
+                <div className="flex-1">
+                  <p className="text-xl font-semibold">{profile.firstName} {profile.lastName}</p>
+                  <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+                  <p className="text-sm text-indigo-600 dark:text-indigo-400">Role: {user.role}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-xl font-semibold">{profile.firstName} {profile.lastName}</p>
-                <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400">Role: {user.role}</p>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
-                <input {...register('firstName')} className="mt-1 w-full p-2 border rounded bg-gray-50 dark:bg-gray-700" />
-                {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
-                <input {...register('lastName')} className="mt-1 w-full p-2 border rounded bg-gray-50 dark:bg-gray-700" />
-                {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
-              </div>
-              <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
+                  <input {...register('firstName')} className="mt-1 w-full p-2 border rounded bg-gray-50 dark:bg-gray-700" />
+                  {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
+                  <input {...register('lastName')} className="mt-1 w-full p-2 border rounded bg-gray-50 dark:bg-gray-700" />
+                  {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
+                </div>
+                <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
                 <input {...register('phone')} className="mt-1 w-full p-2 border rounded bg-gray-50 dark:bg-gray-700" />
               </div>
@@ -194,6 +197,7 @@ export function Profile() {
           </form>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

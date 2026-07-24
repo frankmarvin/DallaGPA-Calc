@@ -197,3 +197,179 @@ export const editCourse = async (req: Request, res: Response) => {
 
   res.json({ message: 'Course updated' });
 };
+
+// New endpoints for the updated workflow
+
+export const getAvailableCourses = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const student = await prisma.student.findUnique({ where: { userId } });
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  const courses = await prisma.course.findMany({
+    where: { departmentId: student.departmentId },
+    include: { department: true, lecturer: true }
+  });
+
+  res.json(courses);
+};
+
+export const getEnrolledCourses = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const student = await prisma.student.findUnique({ where: { userId } });
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  const enrolled = await prisma.enrolledCourse.findMany({
+    where: { studentId: student.id },
+    include: { course: true }
+  });
+
+  const results = await prisma.result.findMany({
+    where: { studentId: student.id },
+    include: { course: true }
+  });
+
+  const enrolledWithGrades = enrolled.map(e => {
+    const grade = results.find(r => r.courseId === e.courseId && r.semester === e.semester && r.year === e.year);
+    return {
+      ...e,
+      grade: grade?.grade || null,
+      gradePoint: grade?.gradePoint || null
+    };
+  });
+
+  res.json(enrolledWithGrades);
+};
+
+export const enrollCourse = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const { courseId, semester, year } = req.body;
+
+  if (!courseId || !semester || !year) {
+    return res.status(400).json({ message: 'courseId, semester, and year are required' });
+  }
+
+  const student = await prisma.student.findUnique({ where: { userId } });
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  // Check if already enrolled
+  const existing = await prisma.enrolledCourse.findFirst({
+    where: {
+      studentId: student.id,
+      courseId,
+      semester,
+      year
+    }
+  });
+
+  if (existing) {
+    return res.status(400).json({ message: 'Already enrolled in this course for this semester/year' });
+  }
+
+  const enrolled = await prisma.enrolledCourse.create({
+    data: {
+      studentId: student.id,
+      courseId,
+      semester,
+      year
+    },
+    include: { course: true }
+  });
+
+  res.status(201).json(enrolled);
+};
+
+export const addGrade = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+  const { courseId, semester, year, grade } = req.body;
+
+  if (!courseId || !semester || !year || !grade) {
+    return res.status(400).json({ message: 'courseId, semester, year, and grade are required' });
+  }
+
+  const student = await prisma.student.findUnique({ where: { userId } });
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  // Get the course
+  const course = await prisma.course.findUnique({ where: { id: courseId } });
+  if (!course) return res.status(404).json({ error: 'Course not found' });
+
+  // Get grading system to find grade point for the letter grade
+  const gradingSystem = await prisma.gradingSystem.findFirst({
+    where: { isDefault: true },
+    include: { grades: true }
+  });
+
+  let gradePoint = 0;
+  let foundGrade = false;
+
+  if (gradingSystem) {
+    // Find the grade scale that matches the letter grade
+    const gradeScale = gradingSystem.grades.find(g => g.grade === grade);
+    if (gradeScale) {
+      gradePoint = gradeScale.gradePoint;
+      foundGrade = true;
+    }
+  }
+
+  if (!foundGrade) {
+    // Default grade point mapping if grading system doesn't exist
+    const gradePointMap: { [key: string]: number } = {
+      'A': 4.0,
+      'B+': 3.5,
+      'B': 3.0,
+      'B-': 2.7,
+      'C+': 2.3,
+      'C': 2.0,
+      'C-': 1.7,
+      'D+': 1.3,
+      'D': 1.0,
+      'E': 0.0
+    };
+    gradePoint = gradePointMap[grade] || 0;
+  }
+
+  const qualityPoints = course.credits * gradePoint;
+
+  // Check if result already exists
+  let result = await prisma.result.findFirst({
+    where: {
+      studentId: student.id,
+      courseId,
+      semester,
+      year
+    }
+  });
+
+  if (result) {
+    // Update existing result
+    result = await prisma.result.update({
+      where: { id: result.id },
+      data: {
+        grade,
+        gradePoint,
+        qualityPoints,
+        totalMarks: gradePoint * 25 // Approximate marks from grade point
+      },
+      include: { course: true }
+    });
+  } else {
+    // Create new result
+    result = await prisma.result.create({
+      data: {
+        studentId: student.id,
+        courseId,
+        semester,
+        year,
+        grade,
+        gradePoint,
+        qualityPoints,
+        totalMarks: gradePoint * 25,
+        isApproved: false
+      },
+      include: { course: true }
+    });
+  }
+
+  res.status(201).json(result);
+};
+
